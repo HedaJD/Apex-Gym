@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX Dashboard · Juan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --black:#0A0F1A;
+  --card:#111827;
+  --card2:#1A2236;
+  --border:#1E2D42;
+  --accent:#00E5A0;
+  --accent2:#FF6B35;
+  --warn:#FFB347;
+  --red:#FF4D6D;
+  --blue:#4A90E2;
+  --muted:#6B7A99;
+  --text:#E8EDF5;
+  --white:#fff;
+}
+
+body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+
+/* ── MAIN NAV ── */
+.main-nav{display:flex;background:#0D1421;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;overflow-x:auto;scrollbar-width:none}
+.main-nav::-webkit-scrollbar{display:none}
+.main-tab{flex-shrink:0;padding:12px 14px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.05em;cursor:pointer;white-space:nowrap;transition:all .2s}
+.main-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ── SECTIONS ── */
+.section{display:none;padding-bottom:60px}
+.section.active{display:block}
+
+/* ── HEADER ── */
+.apex-header{background:linear-gradient(135deg,#0D1B2A 0%,#1A2236 100%);border-bottom:1px solid var(--border);padding:20px 16px 14px}
+.apex-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,10vw,64px);line-height:.9;color:var(--accent);letter-spacing:.02em}
+.apex-logo span{color:var(--text);font-size:clamp(14px,4vw,22px);font-family:'Inter',sans-serif;font-weight:300;letter-spacing:.1em;display:block;margin-top:2px}
+.header-stats{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px}
+.hstat-val{font-weight:700;color:var(--accent);font-size:15px}
+.hstat-lbl{color:var(--muted);font-size:11px;margin-left:4px}
+
+/* ── SUB TABS ── */
+.sub-nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.sub-nav::-webkit-scrollbar{display:none}
+.sub-tab{flex-shrink:0;padding:10px 14px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .2s}
+.sub-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ── INNER PANELS ── */
+.inner{display:none;padding:14px 14px}
+.inner.active{display:block}
+
+/* ── CARDS ── */
+.card{background:var(--card);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.card2{background:var(--card2);border-radius:10px;padding:12px 14px;margin-bottom:12px;border:1px solid var(--border)}
+.card-accent{border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+
+/* ── TAGS ── */
+.tag{display:inline-block;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700}
+
+/* ── META CARDS ── */
+.meta-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start}
+.meta-badge{border-radius:6px;padding:4px 8px;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.meta-title{font-weight:600;font-size:13px;margin-bottom:2px}
+.meta-val{color:var(--muted);font-size:11px}
+
+/* ── SCHEDULE ── */
+.sched-row{display:flex;gap:10px;margin-bottom:6px;align-items:flex-start}
+.sched-time{width:88px;font-size:11px;font-weight:700;padding-top:9px;flex-shrink:0}
+.sched-block{flex:1;border-radius:0 8px 8px 0;padding:8px 12px;border-left:3px solid}
+.sched-name{font-weight:600;font-size:13px}
+.sched-desc{color:var(--muted);font-size:11px;margin-top:2px}
+
+/* ── PROTEIN ── */
+.prot-card{background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;gap:12px;align-items:center}
+.prot-num{text-align:center;width:44px;flex-shrink:0}
+.prot-g{font-size:20px;font-weight:900;color:var(--accent)}
+.prot-lbl{font-size:10px;color:var(--muted)}
+.prot-name{font-weight:600;font-size:13px}
+.prot-info{color:var(--muted);font-size:11px}
+
+/* ── SMOOTHIES ── */
+.smoothie-card{background:var(--card);border-radius:12px;padding:14px;margin-bottom:12px;border-left:4px solid}
+.sm-name{font-weight:700;font-size:14px}
+.sm-cat{font-size:10px;font-weight:600;border-radius:4px;padding:2px 6px;display:inline-block;margin-top:4px}
+.sm-ing{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 8px}
+.sm-ing span{background:#1E2D42;border-radius:6px;padding:3px 8px;font-size:11px;color:var(--text)}
+.sm-ben{color:var(--muted);font-size:11px;font-style:italic}
+
+/* ── MARKET ── */
+.mkt-item{font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text)}
+.mkt-item:last-child{border-bottom:none}
+.mkt-item.have{color:var(--text)}
+.mkt-item.need{color:var(--warn)}
+
+/* ── MINUTAS ── */
+.regla-row{font-size:12px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)}
+.pill-item{background:rgba(0,0,0,.2);border-radius:6px;padding:3px 8px;font-size:11px;display:inline-block;margin:3px 3px 3px 0}
+
+/* ── GYM ── */
+.week-nav{display:flex;gap:4px;padding:12px 14px;background:var(--card2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.week-nav::-webkit-scrollbar{display:none}
+.day-tab{flex-shrink:0;padding:7px 13px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;white-space:nowrap}
+.day-tab:hover{color:var(--white);background:#252535}
+.day-tab.active{color:#000;background:var(--accent);border-color:var(--accent);font-weight:700}
+.day-tab.rest.active{background:#333;border-color:#333;color:var(--muted)}
+
+.day-panel{display:none;padding:0 0 20px}
+.day-panel.active{display:block}
+.day-hero{padding:16px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+.day-badge{font-size:10px;font-weight:700;letter-spacing:.12em;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.badge-push{background:rgba(255,107,53,.15);color:var(--accent2);border:1px solid rgba(255,107,53,.3)}
+.badge-pull{background:rgba(74,144,226,.1);color:var(--blue);border:1px solid rgba(74,144,226,.2)}
+.badge-legs{background:rgba(255,179,71,.1);color:var(--warn);border:1px solid rgba(255,179,71,.2)}
+.badge-rest{background:rgba(80,80,80,.2);color:var(--muted);border:1px solid #333}
+.day-name{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--white);line-height:1}
+.day-focus{font-size:12px;color:var(--muted);margin-top:3px}
+
+.cardio-pill{margin:10px 14px 0;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.2);border-radius:6px;font-size:12px;color:#00c48a}
+
+.ex-list{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.ex-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s}
+.ex-card.open{border-color:#333}
+.ex-hdr{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ex-num{font-family:'Bebas Neue',sans-serif;font-size:17px;color:#333;min-width:20px;text-align:center}
+.ex-info{flex:1;min-width:0}
+.ex-name{font-size:13px;font-weight:600;color:var(--white);line-height:1.3}
+.ex-muscle{font-size:11px;color:var(--muted);margin-top:2px}
+.ex-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.ex-sets{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--accent)}
+.ex-rest{font-size:10px;color:var(--muted)}
+.ex-chev{color:var(--muted);font-size:12px;transition:transform .25s;flex-shrink:0;margin-left:4px}
+.ex-card.open .ex-chev{transform:rotate(180deg);color:var(--accent)}
+
+.ex-body{display:none;border-top:1px solid var(--border);background:#161f2e;padding:14px}
+.ex-card.open .ex-body{display:block}
+.ex-section{margin-bottom:12px}
+.ex-section:last-child{margin-bottom:0}
+.ex-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;font-weight:600}
+.steps{list-style:none}
+.steps li{display:flex;gap:9px;font-size:12px;color:#aaa;line-height:1.6;margin-bottom:5px}
+.sn{flex-shrink:0;width:18px;height:18px;background:#252535;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--accent);margin-top:2px}
+.errors{list-style:none}
+.errors li{font-size:12px;color:#888;padding:3px 0 3px 14px;position:relative;line-height:1.5}
+.errors li::before{content:'✕';position:absolute;left:0;color:var(--accent2);font-size:10px;top:5px}
+.yt-btn{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:6px 13px;background:rgba(255,0,0,.12);border:1px solid rgba(255,0,0,.25);border-radius:6px;color:#ff6060;font-size:12px;font-weight:600;text-decoration:none;transition:background .2s}
+.yt-btn:hover{background:rgba(255,0,0,.22)}
+
+/* batido del día inline */
+.batido-dia{margin:10px 14px 0;background:linear-gradient(135deg,rgba(0,229,160,.07),rgba(0,229,160,.02));border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:12px 14px;cursor:pointer;transition:border-color .2s}
+.batido-dia.open{border-color:rgba(0,229,160,.4)}
+.bd-hdr{display:flex;align-items:center;justify-content:space-between}
+.bd-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:3px}
+.bd-name{font-size:14px;font-weight:700;color:var(--white)}
+.bd-sub{font-size:11px;color:#555;margin-top:2px}
+.bd-chev{color:var(--accent);font-size:12px;transition:transform .2s;flex-shrink:0}
+.batido-dia.open .bd-chev{transform:rotate(180deg)}
+.bd-expand{display:none;margin-top:12px;border-top:1px solid rgba(0,229,160,.15);padding-top:12px}
+.batido-dia.open .bd-expand{display:block}
+.bd-ing{list-style:none}
+.bd-ing li{font-size:12px;color:#aaa;padding:3px 0 3px 12px;position:relative;line-height:1.5}
+.bd-ing li::before{content:'›';position:absolute;left:0;color:var(--accent)}
+.bd-tip{font-size:12px;color:#777;background:rgba(255,255,255,.03);border-left:2px solid var(--accent);border-radius:0 4px 4px 0;padding:7px 10px;line-height:1.6;margin-top:8px}
+.bd-more{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 12px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);border-radius:6px;color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;transition:background .2s}
+.bd-more:hover{background:rgba(0,229,160,.18)}
+
+/* princ + metrics */
+.princ-row{font-size:12px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)}
+.princ-row:last-child{border-bottom:none}
+.metric-row{display:flex;gap:10px;font-size:12px;padding:4px 0}
+.metric-key{color:var(--accent2);font-weight:700;min-width:88px}
+.metric-val{color:var(--muted)}
+
+/* rest day */
+.rest-body{padding:20px 14px;color:var(--muted);font-size:13px;line-height:1.8}
+.rest-body h3{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--white);margin-bottom:10px}
+.rest-body ul{padding-left:18px}
+.rest-body li{margin-bottom:5px}
+
+/* section labels */
+.sec-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin:14px 0 8px}
+.sec-lbl.accent{color:var(--accent)}
+
+/* plato */
+.plato-row{display:flex;gap:10px;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)}
+.plato-row:last-child{border-bottom:none}
+.plato-key{color:var(--accent);font-weight:700;min-width:110px}
+
+/* meal cards */
+.meal-card{background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:6px}
+.meal-top{display:flex;justify-content:space-between;margin-bottom:3px}
+.meal-name{font-weight:600;font-size:13px}
+.meal-g{color:var(--accent);font-weight:700;font-size:13px}
+.meal-ing{color:var(--muted);font-size:11px}
+.meal-time{color:var(--blue);font-size:11px;margin-top:2px}
+
+/* distrib */
+.dist-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
+.dist-t{color:var(--muted)}
+.dist-g{color:var(--text);font-weight:600}
+
+/* footer */
+.apex-footer{text-align:center;padding:12px;color:var(--muted);font-size:10px;border-top:1px solid var(--border);letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="apex-header">
+  <div class="apex-logo">APEX<span>DASHBOARD · JUAN · 2026</span></div>
+  <div class="header-stats">
+    <div><span class="hstat-val">176 cm</span><span class="hstat-lbl">Altura</span></div>
+    <div><span class="hstat-val">93 kg</span><span class="hstat-lbl">Peso actual</span></div>
+    <div><span class="hstat-val">186g</span><span class="hstat-lbl">Proteína/día</span></div>
+    <div><span class="hstat-val">~80 kg</span><span class="hstat-lbl">Meta</span></div>
+  </div>
+</div>
+
+<!-- MAIN NAV -->
+<nav class="main-nav">
+  <button class="main-tab active" onclick="showMain('metas',this)">🎯 Metas</button>
+  <button class="main-tab" onclick="showMain('horario',this)">🕐 Horario</button>
+  <button class="main-tab" onclick="showMain('nutricion',this)">🥩 Nutrición</button>
+  <button class="main-tab" onclick="showMain('batidos',this)">🥤 Batidos</button>
+  <button class="main-tab" onclick="showMain('mercado',this)">🛒 Mercado</button>
+  <button class="main-tab" onclick="showMain('minutas',this)">🍽️ Minutas</button>
+  <button class="main-tab" onclick="showMain('gym',this)">💪 Gym</button>
+</nav>
+
+<!-- ══════════════════════════════════
+     METAS
+══════════════════════════════════ -->
+<div id="sec-metas" class="section active" style="padding:14px">
+
+  <div class="card2" style="margin-bottom:16px">
+    <p style="color:var(--muted);font-size:12px;margin:0">💡 Tu día tiene 3 ventanas críticas: <strong style="color:var(--accent)">APEX 5AM</strong> (inamovible), <strong style="color:var(--accent2)">GYM 4:30PM</strong> (prioridad), y <strong style="color:var(--warn)">APEX tarde</strong> (si no hay gym). Todo lo que hagas hoy es una inversión compuesta.</p>
+  </div>
+
+  <h3 style="color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">🏃 CORTO PLAZO (1–2 meses)</h3>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(0,229,160,.15);color:var(--accent)">Sem 1–4</div><div><div class="meta-title">Déficit calórico consistente</div><div class="meta-val">500 kcal/día bajo TDEE (~2,800 kcal)</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(0,229,160,.15);color:var(--accent)">Diario</div><div><div class="meta-title">Hit proteína diaria</div><div class="meta-val">≥ 186g/día</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(0,229,160,.15);color:var(--accent)">Sem 1–8</div><div><div class="meta-title">Completar PPL 5 días/semana</div><div class="meta-val">0 sesiones perdidas sin causa</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(0,229,160,.15);color:var(--accent)">Sem 8–10</div><div><div class="meta-title">Pesar 90 kg</div><div class="meta-val">Bajada de 3 kg manteniendo fuerza</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(0,229,160,.15);color:var(--accent)">Diario</div><div><div class="meta-title">APEX: 1 hora diaria</div><div class="meta-val">Mañana 5–6 AM o tarde según gym</div></div></div>
+
+  <h3 style="color:var(--warn);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px">📈 MEDIANO PLAZO (3–5 meses)</h3>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(255,179,71,.15);color:var(--warn)">Mes 4–5</div><div><div class="meta-title">Pesar 85 kg</div><div class="meta-val">Pérdida de 8 kg desde inicio</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(255,179,71,.15);color:var(--warn)">Mes 3</div><div><div class="meta-title">PR en ejercicios clave</div><div class="meta-val">Banca +5 kg, Sentadilla +10 kg vs inicio</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(255,179,71,.15);color:var(--warn)">Mes 3</div><div><div class="meta-title">Terminar JS (APEX)</div><div class="meta-val">Módulo JavaScript del roadmap completado</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(255,179,71,.15);color:var(--warn)">Mes 4</div><div><div class="meta-title">Cintura &lt; 88 cm</div><div class="meta-val">Reducción de riesgo metabólico</div></div></div>
+
+  <h3 style="color:var(--accent2);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px">🏆 LARGO PLAZO (6–12 meses)</h3>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(255,107,53,.15);color:var(--accent2)">Mes 8–10</div><div><div class="meta-title">Peso objetivo 80 kg</div><div class="meta-val">Recomposición: menos grasa, más músculo</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(255,107,53,.15);color:var(--accent2)">Mes 6</div><div><div class="meta-title">APEX Dashboard v2 live</div><div class="meta-val">Nutrición + aprendizaje + finanzas integradas</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(255,107,53,.15);color:var(--accent2)">Mes 12</div><div><div class="meta-title">Nivel C1 Inglés</div><div class="meta-val">Puntaje IELTS ≥ 7.0</div></div></div>
+  <div class="meta-card"><div class="meta-badge" style="background:rgba(255,107,53,.15);color:var(--accent2)">Mes 9–12</div><div><div class="meta-title">Primera fuente ingreso digital</div><div class="meta-val">Primer cliente de automatización/dashboard</div></div></div>
+</div>
+
+<!-- ══════════════════════════════════
+     HORARIO
+══════════════════════════════════ -->
+<div id="sec-horario" class="section" style="padding:14px">
+  <div class="card2">
+    <p style="color:var(--muted);font-size:12px;margin:0">💡 Tu día tiene 3 ventanas críticas: <strong style="color:var(--accent)">APEX 5AM</strong> (inamovible), <strong style="color:var(--accent2)">GYM 4:30PM</strong> (prioridad), y <strong style="color:var(--warn)">APEX tarde</strong> (si no hay gym). El sueño 10PM–4:45AM es recuperación muscular — protégelo.</p>
+  </div>
+  <div style="margin-top:12px" id="schedule-list"></div>
+</div>
+
+<!-- ══════════════════════════════════
+     NUTRICIÓN
+══════════════════════════════════ -->
+<div id="sec-nutricion" class="section">
+  <div class="sub-nav">
+    <button class="sub-tab active" onclick="showSub('nut','proteinas',this)">🥩 Proteínas</button>
+    <button class="sub-tab" onclick="showSub('nut','desayunos',this)">🍳 Desayunos</button>
+    <button class="sub-tab" onclick="showSub('nut','cenas',this)">🌙 Cenas</button>
+    <button class="sub-tab" onclick="showSub('nut','distrib',this)">📊 Distribución</button>
+  </div>
+
+  <div id="nut-proteinas" class="inner active" style="padding:14px">
+    <div class="card2"><p style="color:var(--text);font-size:13px;font-weight:600;margin:0 0 4px">Meta: 186g/día de proteína</p><p style="color:var(--muted);font-size:12px;margin:0">Distribuir en 4–5 tomas. Mínimo 30–40g por comida principal.</p></div>
+    <div id="prot-list"></div>
+  </div>
+
+  <div id="nut-desayunos" class="inner" style="padding:14px">
+    <div class="sec-lbl accent">Plan de desayunos</div>
+    <div id="desayuno-list"></div>
+  </div>
+
+  <div id="nut-cenas" class="inner" style="padding:14px">
+    <div class="sec-lbl accent">Plan de cenas</div>
+    <div id="cena-list"></div>
+  </div>
+
+  <div id="nut-distrib" class="inner" style="padding:14px">
+    <div class="card" style="border:1px solid rgba(0,229,160,.25)">
+      <p style="color:var(--accent);font-size:12px;font-weight:700;margin:0 0 10px">📊 Distribución diaria objetivo</p>
+      <div class="dist-row"><span class="dist-t">Desayuno (6 AM)</span><span class="dist-g">40–45g</span></div>
+      <div class="dist-row"><span class="dist-t">Media mañana (10 AM)</span><span class="dist-g">20–25g</span></div>
+      <div class="dist-row"><span class="dist-t">Almuerzo minuta (12 PM)</span><span class="dist-g">30–40g</span></div>
+      <div class="dist-row"><span class="dist-t">Post-gym batido (6 PM)</span><span class="dist-g">25–30g</span></div>
+      <div class="dist-row"><span class="dist-t">Cena (7 PM)</span><span class="dist-g">40–50g</span></div>
+    </div>
+    <div class="card2" style="margin-top:10px">
+      <p style="color:var(--muted);font-size:12px;margin:0">Total diario: <strong style="color:var(--accent)">155–180g</strong> de la dieta + batidos. El resto lo completan los snacks. El músculo necesita aminoácidos disponibles constantemente — no dejes más de 4h sin proteína.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     BATIDOS
+══════════════════════════════════ -->
+<div id="sec-batidos" class="section" style="padding:14px">
+  <div class="card2">
+    <p style="color:var(--muted);font-size:12px;margin:0">🥤 Preparados en tu Ninja BlenSense. Usa tus batch congelados de remolacha, fresas y mora. Congela bananos maduros en trozos.</p>
+  </div>
+  <div style="margin-top:4px" id="smoothie-list"></div>
+</div>
+
+<!-- ══════════════════════════════════
+     MERCADO
+══════════════════════════════════ -->
+<div id="sec-mercado" class="section" style="padding:14px">
+  <div class="card2">
+    <p style="color:var(--muted);font-size:12px;margin:0">🛒 Lista semanal. <strong style="color:var(--accent)">✅ = ya tienes</strong> · <strong style="color:var(--warn)">🆕 = agregar esta semana</strong>.</p>
+  </div>
+  <div id="mercado-list"></div>
+</div>
+
+<!-- ══════════════════════════════════
+     MINUTAS
+══════════════════════════════════ -->
+<div id="sec-minutas" class="section" style="padding:14px">
+  <div class="card2">
+    <p style="color:var(--text);font-weight:600;font-size:13px;margin:0 0 4px">Análisis de minutas SDIS 2026</p>
+    <p style="color:var(--muted);font-size:12px;margin:0">El aceite vegetal ya está en la preparación — no puedes evitarlo, pero sí puedes elegir qué componentes tomar y en qué cantidad.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h3 style="color:var(--warn);font-size:12px;font-weight:700;margin-bottom:10px">⚡ REGLAS DE ORO en el comedor</h3>
+    <div class="princ-row">→ Pide la proteína sin salsa cuando sea posible</div>
+    <div class="princ-row">→ Reduce la porción de arroz a ½ y añade más ensalada</div>
+    <div class="princ-row">→ El aceite vegetal ya está en la preparación — no añadas más</div>
+    <div class="princ-row">→ La sopa cuenta como tus carbos extras del día</div>
+    <div class="princ-row">→ El postre con yogur es una buena opción proteica</div>
+    <div class="princ-row">→ Pide jugo sin azúcar añadida si es posible</div>
+    <div class="princ-row">→ Evita mezclar tubérculo + arroz + pan en el mismo plato</div>
+    <div class="princ-row" style="border:none">→ Añade limón a la proteína para mejorar absorción de hierro</div>
+  </div>
+
+  <div id="minutas-comer"></div>
+  <div id="minutas-evitar"></div>
+
+  <div class="card" style="border:1px solid rgba(0,229,160,.25);margin-top:14px">
+    <h3 style="color:var(--accent);font-size:12px;font-weight:700;margin-bottom:10px">🍽️ PLATO IDEAL en el comedor</h3>
+    <div class="plato-row"><span class="plato-key">50% del plato</span><span style="font-size:12px;color:var(--text)">Proteína + Ensalada/Verdura</span></div>
+    <div class="plato-row"><span class="plato-key">25% del plato</span><span style="font-size:12px;color:var(--text)">Arroz (porción moderada)</span></div>
+    <div class="plato-row"><span class="plato-key">10% del plato</span><span style="font-size:12px;color:var(--text)">Tubérculo (papa o yuca)</span></div>
+    <div class="plato-row"><span class="plato-key">Sopa</span><span style="font-size:12px;color:var(--text)">Siempre (hidratación y saciedad)</span></div>
+    <div class="plato-row"><span class="plato-key">Postre</span><span style="font-size:12px;color:var(--text)">Fruta con yogur si hay</span></div>
+    <div class="plato-row" style="border:none"><span class="plato-key">Bebida</span><span style="font-size:12px;color:var(--text)">Jugo natural sin azúcar añadida</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     GYM
+══════════════════════════════════ -->
+<div id="sec-gym" class="section">
+
+  <div class="week-nav">
+    <button class="day-tab active" onclick="showDay('lunes',this)">Lun · Push</button>
+    <button class="day-tab" onclick="showDay('martes',this)">Mar · Pull</button>
+    <button class="day-tab" onclick="showDay('miercoles',this)">Mié · Legs</button>
+    <button class="day-tab" onclick="showDay('jueves',this)">Jue · Push 2</button>
+    <button class="day-tab" onclick="showDay('viernes',this)">Vie · Pull 2</button>
+    <button class="day-tab rest" onclick="showDay('descanso',this)">Sáb–Dom</button>
+  </div>
+
+  <!-- LUNES -->
+  <div id="day-lunes" class="day-panel active">
+    <div class="day-hero"><div style="flex:1"><div class="day-name">Lunes — Push</div><div class="day-focus">Pecho · Hombros · Tríceps</div></div><span class="day-badge badge-push">PUSH</span></div>
+    <div class="cardio-pill">🔥 Cardio al terminar · 20 min trotadora zona 2 (130–145 bpm)</div>
+    <div class="batido-dia" onclick="toggleBD(this)">
+      <div class="bd-hdr"><div><div class="bd-lbl">🥤 Batido del día</div><div class="bd-name">Tropical Fuel ⚡ Pre-entreno</div><div class="bd-sub">Tómalo 30–45 min antes de entrenar</div></div><span class="bd-chev">▼</span></div>
+      <div class="bd-expand"><ul class="bd-ing"><li>Banano, fresa, mango (batch congelado)</li><li>200ml agua de coco o leche vegetal</li><li>1 cdta mantequilla de maní natural</li><li>½ cdta chía</li></ul><div class="bd-tip">💡 No te excedas con la mantequilla de maní: 1 cdta máximo antes de entrenar.</div></div>
+    </div>
+    <div class="ex-list" id="ex-lunes"></div>
+    <div style="padding:0 14px 14px">
+      <div class="card" style="border:1px solid rgba(0,229,160,.2)">
+        <h3 style="color:var(--warn);font-size:12px;font-weight:700;margin-bottom:8px">🏋️ PRINCIPIOS</h3>
+        <div class="princ-row">→ Sobrecarga progresiva: sube peso o reps cada semana, aunque sea 1 kg</div>
+        <div class="princ-row">→ Rango de movimiento completo siempre — más importante que el peso</div>
+        <div class="princ-row">→ Calentamiento: 5 min caminata + 2 series ligeras del primer ejercicio</div>
+        <div class="princ-row" style="border:none">→ Registra series, reps y peso — así sabrás cuándo progresar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARTES -->
+  <div id="day-martes" class="day-panel">
+    <div class="day-hero"><div style="flex:1"><div class="day-name">Martes — Pull</div><div class="day-focus">Espalda · Bíceps · Deltoides posterior</div></div><span class="day-badge badge-pull">PULL</span></div>
+    <div class="cardio-pill">🔥 Cardio al terminar · 20 min trotadora / elíptica zona 2</div>
+    <div class="batido-dia" onclick="toggleBD(this)">
+      <div class="bd-hdr"><div><div class="bd-lbl">🥤 Batido del día</div><div class="bd-name">Protein Blast 🟤 Post-entreno</div><div class="bd-sub">Dentro de los 30–60 min después del gym</div></div><span class="bd-chev">▼</span></div>
+      <div class="bd-expand"><ul class="bd-ing"><li>200g yogur griego</li><li>1 banano maduro</li><li>1 cda mantequilla de maní</li><li>200ml leche descremada</li><li>1 pizca canela · Hielo</li></ul><div class="bd-tip">💡 Alta proteína + carbos rápidos. Ventana anabólica — no lo dejes pasar.</div></div>
+    </div>
+    <div class="ex-list" id="ex-martes"></div>
+  </div>
+
+  <!-- MIÉRCOLES -->
+  <div id="day-miercoles" class="day-panel">
+    <div class="day-hero"><div style="flex:1"><div class="day-name">Miércoles — Legs</div><div class="day-focus">Cuádriceps · Glúteos · Isquiotibiales · Pantorrilla</div></div><span class="day-badge badge-legs">LEGS</span></div>
+    <div class="cardio-pill">🔥 Cardio al terminar · 20 min bicicleta estática</div>
+    <div class="batido-dia" onclick="toggleBD(this)">
+      <div class="bd-hdr"><div><div class="bd-lbl">🥤 Batido del día</div><div class="bd-name">Fresa Colágeno 🍓 Post-piernas</div><div class="bd-sub">Antioxidantes máximos — el día más exigente</div></div><span class="bd-chev">▼</span></div>
+      <div class="bd-expand"><ul class="bd-ing"><li>1 taza fresas congeladas</li><li>½ banano</li><li>200g yogur griego</li><li>1 cda semillas chía</li><li>Jugo de ½ limón · 150ml agua</li></ul><div class="bd-tip">💡 Vitamina C + proteína + omega-3. Apoya piel (complementa Adapalene) y músculo.</div></div>
+    </div>
+    <div class="ex-list" id="ex-miercoles"></div>
+  </div>
+
+  <!-- JUEVES -->
+  <div id="day-jueves" class="day-panel">
+    <div class="day-hero"><div style="flex:1"><div class="day-name">Jueves — Push 2</div><div class="day-focus">Hombros · Pecho · Core</div></div><span class="day-badge badge-push">PUSH</span></div>
+    <div class="cardio-pill">🔥 Cardio al terminar · 25 min trotadora (5 min de intervalos)</div>
+    <div class="batido-dia" onclick="toggleBD(this)">
+      <div class="bd-hdr"><div><div class="bd-lbl">🥤 Batido del día</div><div class="bd-name">Green Muscle 💚 Antiinflamatorio</div><div class="bd-sub">4to día activo — el cuerpo necesita recuperación</div></div><span class="bd-chev">▼</span></div>
+      <div class="bd-expand"><ul class="bd-ing"><li>1 puñado espinaca</li><li>½ pepino · ½ manzana verde</li><li>1 cm jengibre · 1 cda chía</li><li>200ml agua · Jugo de ½ limón</li></ul><div class="bd-tip">💡 Magnesio de la espinaca ayuda la recuperación muscular. Antiinflamatorio potente.</div></div>
+    </div>
+    <div class="ex-list" id="ex-jueves"></div>
+  </div>
+
+  <!-- VIERNES -->
+  <div id="day-viernes" class="day-panel">
+    <div class="day-hero"><div style="flex:1"><div class="day-name">Viernes — Pull 2</div><div class="day-focus">Espalda ancha · Bíceps · Core</div></div><span class="day-badge badge-pull">PULL</span></div>
+    <div class="cardio-pill">🔥 Cardio al terminar · 25 min trotadora zona 2–3</div>
+    <div class="batido-dia" onclick="toggleBD(this)">
+      <div class="bd-hdr"><div><div class="bd-lbl">🥤 Batido del día</div><div class="bd-name">Mora Detox 🫐 Cierre de semana</div><div class="bd-sub">Antioxidantes + sueño — 5 días activo</div></div><span class="bd-chev">▼</span></div>
+      <div class="bd-expand"><ul class="bd-ing"><li>1 taza mora congelada</li><li>½ remolacha pequeña (congelada)</li><li>1 cda linaza · 200ml leche vegetal</li><li>Miel de abejas opcional · Hielo</li></ul><div class="bd-tip">💡 Melatonina natural de la mora → mejor sueño → mejor recuperación del fin de semana.</div></div>
+    </div>
+    <div class="ex-list" id="ex-viernes"></div>
+  </div>
+
+  <!-- DESCANSO -->
+  <div id="day-descanso" class="day-panel">
+    <div class="day-hero"><div style="flex:1"><div class="day-name">Sábado – Domingo</div><div class="day-focus">Recuperación activa · El músculo crece aquí</div></div><span class="day-badge badge-rest">REST</span></div>
+    <div class="batido-dia" onclick="toggleBD(this)">
+      <div class="bd-hdr"><div><div class="bd-lbl">🥤 Batido del fin de semana</div><div class="bd-name">Remolacha Power 🔴 Recuperación</div><div class="bd-sub">Óxido nítrico + recuperación activa</div></div><span class="bd-chev">▼</span></div>
+      <div class="bd-expand"><ul class="bd-ing"><li>1 remolacha mediana (o batch congelado)</li><li>1 manzana verde · ½ limón</li><li>1 cm jengibre · 200ml agua de coco · Hielo</li></ul><div class="bd-tip">💡 Nitratos de la remolacha mejoran oxigenación y flujo sanguíneo — ideal para recuperación activa.</div></div>
+    </div>
+    <div class="rest-body">
+      <h3>¿Por qué el descanso importa tanto?</h3>
+      <p style="margin-bottom:12px">Durante el entrenamiento rompes fibras musculares. Durante el descanso el cuerpo las repara más grandes y fuertes. Sin descanso, solo acumulas fatiga.</p>
+      <ul>
+        <li>Caminata 30–45 min a ritmo tranquilo</li>
+        <li>Estiramientos estáticos 10–15 min</li>
+        <li>Foam roller en cuádriceps, dorsales y pantorrillas</li>
+        <li>Dormir mínimo 7–8 horas</li>
+        <li>Hidratación: 3 litros de agua mínimo</li>
+      </ul>
+    </div>
+    <div style="padding:0 14px">
+      <div class="card" style="border:1px solid rgba(255,107,53,.25)">
+        <h3 style="color:var(--accent2);font-size:12px;font-weight:700;margin-bottom:8px">📐 MÉTRICAS A TRACKEAR</h3>
+        <div class="metric-row"><span class="metric-key">Peso</span><span class="metric-val">Martes en ayunas, mismo momento</span></div>
+        <div class="metric-row"><span class="metric-key">Cintura</span><span class="metric-val">Semanal al nivel del ombligo</span></div>
+        <div class="metric-row"><span class="metric-key">Fotos</span><span class="metric-val">Cada 2 semanas, misma iluminación/hora</span></div>
+        <div class="metric-row"><span class="metric-key">PR principales</span><span class="metric-val">Press banca, sentadilla, jalón</span></div>
+        <div class="metric-row"><span class="metric-key">Proteína diaria</span><span class="metric-val">Registrar en APEX Dashboard</span></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end gym -->
+
+<div class="apex-footer">APEX DASHBOARD · JUAN · RECOMPOSICIÓN CORPORAL 2026</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────
+const schedule = [
+  {hora:"4:45 AM",bloque:"Despertar",tipo:"rutina",desc:"Hidratación: 500ml agua + jugo remolacha"},
+  {hora:"5:00–6:00 AM",bloque:"APEX Morning Block",tipo:"apex",desc:"Estudio fijo: Python, JS, BI o inglés. Prioridad máxima."},
+  {hora:"6:00–6:15 AM",bloque:"Desayuno",tipo:"comida",desc:"Alto en proteína. Ver sección Desayunos."},
+  {hora:"6:15 AM",bloque:"Alistarse",tipo:"rutina",desc:"Skincare matutino + preparar lonchera si aplica"},
+  {hora:"7:00–7:30 AM",bloque:"Trabajo",tipo:"trabajo",desc:"Llegada al comedor. Coordinación operativa."},
+  {hora:"10:00–10:30 AM",bloque:"Media mañana",tipo:"comida",desc:"Snack proteico: colombinas + fruta o yogur griego"},
+  {hora:"12:00–1:00 PM",bloque:"Almuerzo (minuta)",tipo:"comida",desc:"Seleccionar componentes correctos. Ver sección Minutas."},
+  {hora:"3:30–4:00 PM",bloque:"Salida trabajo",tipo:"trabajo",desc:""},
+  {hora:"4:30–6:00 PM",bloque:"GYM 💪",tipo:"gym",desc:"Sesión PPL. Tomar batido pre/post entreno."},
+  {hora:"6:00–7:00 PM",bloque:"APEX Tarde (si hubo gym)",tipo:"apex",desc:"1 hora de estudio post-entreno"},
+  {hora:"4:30–5:30 PM",bloque:"APEX Tarde (sin gym)",tipo:"apex",desc:"Cuando no hay sesión de gym ese día"},
+  {hora:"7:00–7:30 PM",bloque:"Cena",tipo:"comida",desc:"Alta proteína, baja en carbos simples."},
+  {hora:"9:30 PM",bloque:"Skincare nocturno",tipo:"rutina",desc:"CeraVe Foaming → Adapgel → CeraVe Moisturising"},
+  {hora:"10:00 PM",bloque:"Dormir",tipo:"rutina",desc:"8h de sueño = recuperación muscular + cortisol controlado"},
+];
+const tipoColor={rutina:"#6B7A99",apex:"#00E5A0",comida:"#FFB347",trabajo:"#4A90E2",gym:"#FF6B35"};
+
+const proteinSources=[
+  {fuente:"Pechuga de pollo",g100:31,porcion:"200g cocida",proteina:62,prep:"Plancha, horno, desmechada"},
+  {fuente:"Salmón",g100:25,porcion:"150g",proteina:37,prep:"Plancha al horno con limón y ajo"},
+  {fuente:"Tilapia",g100:26,porcion:"200g",proteina:52,prep:"Al vapor, a la plancha, al horno"},
+  {fuente:"Carne molida res magra",g100:26,porcion:"150g",proteina:39,prep:"Salteada, en cazuela"},
+  {fuente:"Camarones",g100:24,porcion:"150g",proteina:36,prep:"Salteados con ajo, al vapor"},
+  {fuente:"Colombinas de pollo",g100:20,porcion:"150g",proteina:30,prep:"Al horno, a la plancha"},
+  {fuente:"Huevos",g100:13,porcion:"3 huevos",proteina:19,prep:"Revueltos, cocidos, omelette"},
+  {fuente:"Yogur griego",g100:10,porcion:"200g",proteina:20,prep:"Con fruta, como snack, en batidos"},
+  {fuente:"Lentejas (cocidas)",g100:9,porcion:"200g",proteina:18,prep:"En sopa, con arroz integral"},
+  {fuente:"Albóndigas (res)",g100:18,porcion:"150g",proteina:27,prep:"En salsa criolla o boloñesa"},
+];
+
+const desayunos=[
+  {nombre:"Omelette proteico",proteina:40,ingredientes:"3 huevos + 100g pechuga desmechada + espinaca + queso bajo en grasa",tiempo:"10 min"},
+  {nombre:"Bowl de yogur griego",proteina:35,ingredientes:"200g yogur griego + fresas + granola sin azúcar",tiempo:"5 min"},
+  {nombre:"Huevos revueltos + salmón",proteina:45,ingredientes:"3 huevos + 80g salmón + aguacate ¼",tiempo:"10 min"},
+  {nombre:"Tostada alta proteína",proteina:30,ingredientes:"Tortilla integral + 100g pollo + queso + tomate",tiempo:"8 min"},
+];
+
+const cenas=[
+  {nombre:"Salmón al limón + brócoli",proteina:45,ingredientes:"180g salmón + brócoli al vapor + limón + ajo",tiempo:"15 min"},
+  {nombre:"Tilapia con ensalada",proteina:48,ingredientes:"200g tilapia + lechuga + tomate + aguacate + limón",tiempo:"15 min"},
+  {nombre:"Bowl de camarones",proteina:40,ingredientes:"180g camarones + arroz integral pequeño + pimiento",tiempo:"12 min"},
+  {nombre:"Pollo desmechado con papa",proteina:50,ingredientes:"200g pechuga + papa pequeña cocida + ensalada",tiempo:"15 min"},
+];
+
+const smoothies=[
+  {nombre:"REMOLACHA POWER 🔴",cat:"Pre-entreno / Rendimiento",color:"#8B1A4A",ing:["1 remolacha mediana (o batch congelado)","1 manzana verde","½ limón","1 cm jengibre","200ml agua de coco","Hielo"],ben:"Aumenta óxido nítrico → mejor flujo sanguíneo → más fuerza. Tomar 60–90 min antes del gym.",prot:3},
+  {nombre:"GREEN MUSCLE 💚",cat:"Recuperación / Antiinflamatorio",color:"#1A5C3A",ing:["1 puñado espinaca","½ pepino","½ manzana verde","1 cm jengibre","1 cda semillas chía","200ml agua","Jugo de ½ limón"],ben:"Antiinflamatorio post-entreno. Magnesio de espinaca ayuda recuperación muscular.",prot:4},
+  {nombre:"PROTEIN BLAST 🟤",cat:"Post-entreno / Construcción muscular",color:"#5C3A1A",ing:["200g yogur griego","1 banano maduro","1 cda mantequilla de maní","200ml leche descremada","1 pizca canela","Hielo"],ben:"Alta proteína + carbos rápidos post-entreno. Ventana anabólica de 30–60 min.",prot:28},
+  {nombre:"MANGO ANTIOXIDANTE 🟡",cat:"Antioxidante / Inmunidad",color:"#8B5E00",ing:["1 taza mango congelado","½ zanahoria","1 naranja (jugo)","1 cm cúrcuma fresca","200ml agua","Hielo"],ben:"Vitamina C + betacarotenos. Ideal para días de descanso del gym.",prot:3},
+  {nombre:"FRESA COLÁGENO 🍓",cat:"Piel / Recuperación",color:"#8B1A2A",ing:["1 taza fresas congeladas","½ banano","200g yogur griego","1 cda semillas chía","Jugo de ½ limón","150ml agua"],ben:"Vitamina C + proteína + omega-3. Apoya piel (complementa Adapalene) y músculo.",prot:18},
+  {nombre:"MORA DETOX 🫐",cat:"Detox / Sueño",color:"#2A1A5C",ing:["1 taza mora congelada","½ remolacha pequeña (congelada)","1 cda linaza","200ml leche vegetal o agua","Miel de abejas (opcional)","Hielo"],ben:"Antioxidantes potentes. Melatonina natural de la mora → mejor sueño → mejor recuperación.",prot:4},
+  {nombre:"GUAYABA ENERGY ☀️",cat:"Energía matutina",color:"#5C3A00",ing:["2 guayabas","1 zanahoria pequeña","1 naranja","1 cm jengibre","200ml agua de coco","Hielo"],ben:"4x más Vitamina C que naranja. Energía sostenida para el bloque APEX matutino.",prot:3},
+  {nombre:"LULO FOCUS 🟢",cat:"Concentración / APEX",color:"#2A5C1A",ing:["2 lulos","½ manzana verde","1 cda semillas chía","200ml agua","Hojas de menta","Hielo"],ben:"Hidratación + vitamina C. Refrescante para tomar mientras estudias. Bajo en azúcar.",prot:3},
+];
+
+const mercado={
+  "🥩 Proteínas":["✅ Pechuga de pollo (ya tienes) — 1 kg/semana","✅ Salmón (ya tienes) — 400g/semana","✅ Tilapia (ya tienes) — 400g/semana","✅ Carne molida res magra — 500g/semana","✅ Camarones","✅ Colombinas de pollo","🆕 Huevos — 12–18 unidades/semana","🆕 Yogur griego (sin azúcar) — 2 potes grandes","🆕 Albóndigas caseras"],
+  "🌾 Carbohidratos":["✅ Papas","✅ Lentejas","✅ Tortillas","🆕 Arroz integral","🆕 Avena (para desayunos)","🆕 Quinoa (alta proteína vegetal)","🆕 Pan integral (limitado)"],
+  "🥦 Verduras":["✅ Brócoli — congelar en porciones","🆕 Espinaca — base de batidos verdes","🆕 Pepino — hidratación y batidos","🆕 Zanahoria — batidos y ensaladas","🆕 Lechuga romana","🆕 Tomate cherry","🆕 Pimentón de colores","🆕 Aguacate — 2–3 por semana"],
+  "🍓 Frutas y Batch":["✅ Fresas congeladas (batch)","✅ Remolacha congelada (batch) 🔥","🆕 Mora congelada — melatonina + antioxidante","🆕 Mango congelado","🆕 Banano — madurar y congelar en trozos","🆕 Manzana verde","🆕 Limones — 8–10 por semana","🆕 Naranja — 4–6 por semana","🆕 Guayaba (cuando encuentres)","🆕 Lulo (cuando encuentres)"],
+  "🌿 Extras y Superfoods":["🆕 Semillas de chía — omega-3 + fibra","🆕 Linaza molida","🆕 Mantequilla de maní (sin azúcar)","🆕 Jengibre fresco","🆕 Cúrcuma fresca o en polvo","🆕 Agua de coco (tetra pak)","🆕 Miel de abejas (pequeño frasco)","🆕 Queso cottage bajo en grasa"],
+};
+
+const minutasComer={
+  "Proteína":["Carne de res en trozos","Pechuga de pollo (sin frituras)","Salmón (si aparece)","Albóndigas al horno","Carne desmechada","Lomo de cerdo asado"],
+  "Cereal":["Arroz blanco (porción moderada)","Arroz con verduras"],
+  "Verdura":["Ensalada lechuga/tomate/pepino","Ensalada con aguacate","Verduras al vapor"],
+  "Tubérculo":["Papa cocida/al vapor","Yuca (moderado)","Plátano verde (moderado)"],
+  "Postre":["Fresas con yogur ✅","Pera con yogur ✅","Papaya con yogur ✅","Banano (sin crema) ✅"],
+  "Bebida":["Jugo de mora ✅","Jugo de fresa ✅","Jugo de guayaba ✅","Jugo de lulo ✅"],
+};
+const minutasEvitar={
+  "Proteína":["Hamburguesa frita","Frituras en general","Embutidos"],
+  "Cereal":["Espaguetis con leche (alto azúcar)","Porciones dobles de arroz"],
+  "Tubérculo":["Plátano maduro frito","Papa frita","Yuca frita"],
+  "Sopa":["Sopa de mondongo (muy grasa)","Cazuela de frijoles con chicharrón"],
+  "Postre":["Banano en trozos con queso doble crema","Arroz con leche y queso campesino"],
+  "Bebida":["Sorbete de feijoa","Sorbete de uva Isabella","Peto dulce con leche"],
+};
+
+const exercises={
+  lunes:[
+    {n:"Press de banca plano",m:"Pecho medio · Tríceps · Deltoides anterior",s:"4 × 8–10",r:"90 seg",steps:["Banco plano, agarre un poco más ancho que los hombros.","Baja la barra lentamente hacia la parte media del pecho.","Toca el pecho suavemente (sin rebotar) y empuja exhalando.","Codos a ~60° del cuerpo. Leve arco natural en la espalda."],errors:["Rebotar la barra en el pecho","Levantar los glúteos del banco","Codos completamente abiertos (riesgo de hombro)"],yt:"press+de+banca+plano+tecnica+correcta"},
+    {n:"Press inclinado con mancuernas",m:"Pecho superior · Deltoides anterior",s:"3 × 10–12",r:"75 seg",steps:["Banco a 30–45°. Mancuernas a altura del pecho, codos a los lados.","Empuja hacia arriba y ligeramente hacia adentro.","Baja lento (2–3 seg) sintiendo el estiramiento del pecho superior."],errors:["Banco más de 45° (trabaja hombro, no pecho)","No controlar la bajada"],yt:"press+inclinado+mancuernas+tecnica"},
+    {n:"Aperturas en cable cruzado",m:"Pecho — estiramiento y contracción",s:"3 × 12–15",r:"60 seg",steps:["Poleas altas. Brazos extendidos, codo levemente flexionado y fijo.","Junta las manos frente a ti en arco. Se cruzan ligeramente.","Regresa lento sintiendo el estiramiento del pecho."],errors:["Doblar codos demasiado (se vuelve press)","Demasiado peso perdiendo el control"],yt:"aperturas+cable+cruzado+pecho+tecnica"},
+    {n:"Press militar con barra",m:"Deltoides anterior y medial · Tríceps",s:"4 × 8–10",r:"90 seg",steps:["De pie, barra a la altura del pecho al ancho de hombros.","Empuja hacia arriba pasando frente al rostro (nunca detrás del cuello).","Baja controlado hasta el mentón. Core apretado."],errors:["Arquear excesivamente la espalda baja","Presionar detrás del cuello (riesgo cervical)"],yt:"press+militar+barra+tecnica+correcta"},
+    {n:"Elevaciones laterales",m:"Deltoides medial (hombro ancho)",s:"3 × 15–20",r:"60 seg",steps:["De pie, mancuernas a los lados con ligera flexión de codo.","Eleva lateralmente hasta la altura del hombro. Meñique ligeramente más alto.","Baja lento (3 seg). Clave para hombros anchos."],errors:["Demasiado peso y hacer trampa con el cuerpo","Subir los brazos por encima del hombro"],yt:"elevaciones+laterales+mancuernas+tecnica"},
+    {n:"Fondos en paralelas",m:"Pecho inferior · Tríceps",s:"3 × 10–12",r:"75 seg",steps:["Sujeta las barras y elévate con brazos extendidos.","Inclínate levemente hacia adelante para activar el pecho.","Baja hasta que los codos superen los 90°. Empuja hacia arriba."],errors:["Bajar demasiado (hiperextensión del hombro)","Balancearse con el cuerpo","Si es difícil, usa la máquina asistida"],yt:"fondos+paralelas+pecho+triceps+tecnica"},
+    {n:"Extensión tríceps en polea alta",m:"Tríceps (cabeza lateral y medial)",s:"3 × 12–15",r:"60 seg",steps:["Polea alta con barra o cuerda. Codos pegados al cuerpo, fijos.","Extiende hacia abajo hasta que los brazos queden rectos.","Sube controlado sin mover los codos."],errors:["Mover los codos durante el movimiento","No llegar a la extensión completa"],yt:"extension+triceps+polea+alta+tecnica"},
+  ],
+  martes:[
+    {n:"Jalón al pecho (agarre ancho)",m:"Dorsal · Bíceps · Redondo mayor",s:"4 × 8–10",r:"90 seg",steps:["Agarre pronado más ancho que los hombros. Inclínate ligeramente atrás (~15°).","Piensa en llevar los codos hacia los bolsillos — así activas el dorsal.","Sube controlado hasta extensión casi completa sin soltar tensión."],errors:["Inclinarse demasiado atrás","Jalar detrás del cuello (riesgo cervical)"],yt:"jalon+al+pecho+tecnica+correcta+dorsal"},
+    {n:"Remo con barra",m:"Dorsal medio · Trapecio · Romboides",s:"4 × 8–10",r:"90 seg",steps:["Inclínate ~45°, espalda recta, rodillas ligeramente flexionadas.","Jala la barra hacia el ombligo apretando los omóplatos al final.","Baja lentamente. La espalda NO se mueve — solo brazos y escápula."],errors:["Redondear la espalda (lesión lumbar)","Usar impulso de cadera"],yt:"remo+con+barra+tecnica+espalda"},
+    {n:"Remo en cable sentado",m:"Dorsal inferior · Bíceps · Trapecio",s:"3 × 10–12",r:"75 seg",steps:["Sentado, pies en el apoyo, rodillas ligeramente flexionadas.","Jala hacia el abdomen llevando codos atrás y apretando omóplatos.","Regresa lento sintiendo el estiramiento en el dorsal."],errors:["Balancearse hacia adelante y atrás","Tirar con bíceps en lugar de la espalda"],yt:"remo+en+polea+baja+tecnica+correcta"},
+    {n:"Pull-over en polea alta",m:"Dorsal — contracción máxima · Serrato",s:"3 × 12–15",r:"60 seg",steps:["Polea alta. De pie, brazos extendidos sobre la cabeza.","Jala hacia los muslos con brazos casi extendidos (leve flexión fija).","Al llegar abajo, aprieta el dorsal. Sube lento."],errors:["Doblar demasiado los codos","No llegar a la extensión completa arriba"],yt:"pullover+polea+alta+dorsal+tecnica"},
+    {n:"Curl de bíceps con barra",m:"Bíceps braquial · Braquial anterior",s:"3 × 10–12",r:"60 seg",steps:["Agarre supino al ancho de hombros. Codos fijos a los lados.","Sube hasta contracción completa del bíceps.","Baja LENTO (3 seg). La fase excéntrica es donde más crece."],errors:["Mover codos hacia adelante","Usar impulso de cadera","Bajar demasiado rápido"],yt:"curl+biceps+barra+tecnica+correcta"},
+    {n:"Curl martillo con mancuernas",m:"Braquial · Braquiorradial · Antebrazo",s:"3 × 12–15",r:"60 seg",steps:["Agarre neutro (pulgares al frente, como un martillo). Codos fijos.","Sube sin rotar la muñeca. Baja controlado."],errors:["Mover los codos hacia adelante","Rotar la muñeca en la subida"],yt:"curl+martillo+mancuernas+tecnica+biceps"},
+    {n:"Face pulls con cuerda",m:"Deltoides posterior · Manguito rotador",s:"3 × 15–20",r:"60 seg",steps:["Cuerda en polea alta. Codos a la altura de los hombros.","Jala hacia tu cara separando las manos al final.","Pulgares apuntando detrás de la cabeza. Regresa lento."],errors:["Bajar los codos al jalar","No abrir las manos al final del movimiento"],yt:"face+pulls+cuerda+polea+deltoides+posterior"},
+  ],
+  miercoles:[
+    {n:"Sentadilla con barra",m:"Cuádriceps · Glúteos · Core",s:"4 × 6–8",r:"120 seg",steps:["Barra sobre trapecios. Pies al ancho de hombros, puntas levemente afuera.","Inhala, aprieta el core. Baja empujando rodillas hacia afuera.","Hasta muslos paralelos al suelo. Empuja desde los talones para subir."],errors:["Rodillas que colapsan hacia adentro","Talones que se levantan del suelo","No bajar lo suficiente (media sentadilla = medio resultado)"],yt:"sentadilla+barra+tecnica+correcta+principiantes"},
+    {n:"Prensa de piernas",m:"Cuádriceps · Glúteos · Isquiotibiales",s:"4 × 10–12",r:"90 seg",steps:["Pies al ancho de hombros en la plataforma, parte media del pie.","Baja hasta ~90° de rodilla. Empuja sin bloquear completamente.","Espalda baja siempre pegada al respaldo."],errors:["Despegar la espalda baja (riesgo lumbar)","Bloquear las rodillas arriba"],yt:"prensa+piernas+maquina+tecnica+correcta"},
+    {n:"Extensión de cuádriceps",m:"Cuádriceps (aislamiento)",s:"3 × 12–15",r:"60 seg",steps:["Rodillo en la parte baja del empeine. Extiende hasta casi completo.","Aprieta el cuádriceps en la parte alta. Baja lento."],errors:["Despegar los glúteos del asiento","Bajar demasiado rápido"],yt:"extension+cuadriceps+maquina+tecnica"},
+    {n:"Curl femoral acostado",m:"Isquiotibiales",s:"4 × 10–12",r:"75 seg",steps:["Rodillo justo por encima del talón. Caderas pegadas al banco.","Dobla las piernas apretando isquiotibiales en la parte alta.","Baja lentamente sin soltar tensión."],errors:["Levantar las caderas al subir","Bajar demasiado rápido"],yt:"curl+femoral+acostado+maquina+tecnica"},
+    {n:"Peso muerto rumano",m:"Isquiotibiales · Glúteos · Espalda baja",s:"3 × 10–12",r:"90 seg",steps:["Rodillas levemente flexionadas y fijas. Empuja caderas hacia atrás.","Desliza la barra por las piernas hasta sentir estiramiento en isquiotibiales.","Sube empujando caderas hacia adelante, no levantando con la espalda."],errors:["Redondear la espalda (el más peligroso)","Doblar demasiado las rodillas (se vuelve sentadilla)"],yt:"peso+muerto+rumano+tecnica+isquiotibiales"},
+    {n:"Elevación de pantorrillas",m:"Gastrocnemio · Sóleo",s:"4 × 15–20",r:"45 seg",steps:["Punta del pie en borde de escalón. Baja el talón por debajo del nivel.","Sube tan alto como puedas. Aguanta 1 seg. Baja lento."],errors:["No usar rango completo","Rebotar sin controlar"],yt:"elevacion+pantorrillas+tecnica+gemelos"},
+  ],
+  jueves:[
+    {n:"Press con mancuernas sentado",m:"Deltoides · Tríceps",s:"4 × 8–10",r:"90 seg",steps:["Banco a 90°. Mancuernas a altura de hombros, codos a los lados.","Empuja hacia arriba y ligeramente adentro. No bloquees los codos.","Baja controlado hasta los hombros."],errors:["Arquear excesivamente la espalda baja","Bajar codos por debajo del hombro"],yt:"press+mancuernas+sentado+hombros+tecnica"},
+    {n:"Elevaciones laterales",m:"Deltoides medial",s:"3 × 15–20",r:"60 seg",steps:["De pie, mancuernas a los lados con ligera flexión de codo.","Eleva lateralmente hasta la altura del hombro.","Baja lento (3 seg)."],errors:["Demasiado peso y hacer trampa","Subir los brazos por encima del hombro"],yt:"elevaciones+laterales+mancuernas+tecnica"},
+    {n:"Elevaciones frontales alternas",m:"Deltoides anterior",s:"3 × 12",r:"60 seg",steps:["Agarre pronado. Levanta un brazo hacia adelante hasta la altura del hombro.","Baja lento mientras subes el otro. Tronco quieto."],errors:["Balancear el cuerpo para ayudarse","Subir el brazo por encima del hombro"],yt:"elevaciones+frontales+mancuernas+hombro+tecnica"},
+    {n:"Encogimientos de hombros",m:"Trapecio superior",s:"4 × 15",r:"60 seg",steps:["Barra frente al cuerpo, brazos extendidos. Solo movimiento vertical.","Encoge hombros hacia las orejas. Aguanta 1 seg. Baja controlado."],errors:["Rotar los hombros en círculo (daña la articulación)","Doblar los codos para levantar más peso"],yt:"encogimientos+hombros+barra+trapecio+tecnica"},
+    {n:"Plancha frontal",m:"Core · Transverso · Estabilización lumbar",s:"3 × 45 seg",r:"60 seg",steps:["Antebrazos y puntas de pies. Cuerpo recto de cabeza a talones.","Aprieta glúteos, abdomen y cuádriceps al mismo tiempo.","Cadera ni arriba ni abajo. Respira normalmente."],errors:["Cadera demasiado alta o hundida","Contener la respiración"],yt:"plancha+frontal+tecnica+correcta+core"},
+    {n:"Ab wheel — rueda abdominal",m:"Recto abdominal · Core profundo",s:"3 × 12",r:"75 seg",steps:["Arrodillado. Core apretado antes de empezar.","Empuja la rueda hacia adelante hasta donde mantengas control.","Jala de regreso con abdomen y dorsales. Empieza con rango corto."],errors:["Arquear la espalda baja al extender","Ir demasiado lejos al principio"],yt:"ab+wheel+rueda+abdominal+tecnica+principiantes"},
+  ],
+  viernes:[
+    {n:"Jalón agarre cerrado neutro",m:"Dorsal interior · Bíceps",s:"4 × 10",r:"90 seg",steps:["Accesorio en V. Inclínate ligeramente atrás (~15°).","Jala hacia el pecho superior. En el punto más bajo aprieta omóplatos.","Sube lento estirando completamente el dorsal."],errors:["Tirar solo con bíceps sin involucrar la espalda","No estirar completamente arriba"],yt:"jalon+agarre+cerrado+neutro+dorsal+tecnica"},
+    {n:"Remo con mancuerna a una mano",m:"Dorsal · Romboide · Trapecio medio",s:"4 × 10",r:"75 seg",steps:["Rodilla y mano del mismo lado en el banco. Espalda paralela al piso.","Jala hacia la cadera llevando el codo hacia el techo. Retrae el omóplato.","Baja lento hasta extensión completa del brazo."],errors:["Rotar el torso para ayudarse","Jalar hacia el pecho en lugar de la cadera"],yt:"remo+mancuerna+una+mano+banco+tecnica"},
+    {n:"Pull-over en polea alta",m:"Dorsal — contracción máxima · Serrato",s:"3 × 12",r:"60 seg",steps:["Polea alta. De pie, brazos extendidos sobre la cabeza.","Jala hacia los muslos con brazos casi extendidos.","Al llegar abajo, aprieta el dorsal. Sube lento."],errors:["Doblar los codos demasiado","No llegar a la extensión completa"],yt:"pullover+polea+alta+dorsal+tecnica"},
+    {n:"Curl predicador barra EZ",m:"Bíceps — pico y cabeza corta",s:"3 × 12",r:"60 seg",steps:["Tríceps apoyados en el cojín en todo momento.","Sube hasta contracción máxima. Aguanta 1 seg.","Baja MUY lento hasta casi extensión completa."],errors:["Despegar los tríceps del cojín","No bajar completamente"],yt:"curl+predicador+barra+EZ+biceps+tecnica"},
+    {n:"Curl concentrado con mancuerna",m:"Bíceps pico · Conexión mente-músculo",s:"3 × 10",r:"60 seg",steps:["Sentado, codo del brazo que trabaja apoyado en el muslo.","Sube girando el meñique hacia afuera. Mira el bíceps mientras trabajas.","Baja completamente."],errors:["No apoyar el codo en el muslo","Usar demasiado peso"],yt:"curl+concentrado+mancuerna+biceps+pico+tecnica"},
+    {n:"Crunch en polea con cuerda",m:"Recto abdominal",s:"4 × 20",r:"45 seg",steps:["Arrodillado, cuerda detrás de la cabeza.","Dobla el torso hacia abajo contrayendo el abdomen — caja torácica hacia cadera.","Sube sin llegar a erguirte completamente."],errors:["Tirar con los brazos en lugar del abdomen","Mover la cadera en lugar del torso"],yt:"crunch+polea+cuerda+abdomen+tecnica+correcta"},
+  ],
+};
+
+// ── RENDER ──────────────────────────────────────────
+function buildSchedule(){
+  const el=document.getElementById('schedule-list');
+  el.innerHTML=schedule.map(s=>`
+    <div class="sched-row">
+      <div class="sched-time" style="color:${tipoColor[s.tipo]}">${s.hora}</div>
+      <div class="sched-block" style="background:var(--card);border-left-color:${tipoColor[s.tipo]}">
+        <div class="sched-name">${s.bloque}</div>
+        ${s.desc?`<div class="sched-desc">${s.desc}</div>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function buildProtein(){
+  document.getElementById('prot-list').innerHTML=proteinSources.map(p=>`
+    <div class="prot-card">
+      <div class="prot-num"><div class="prot-g">${p.proteina}</div><div class="prot-lbl">g prot</div></div>
+      <div><div class="prot-name">${p.fuente}</div><div class="prot-info">${p.porcion} · ${p.prep}</div></div>
+    </div>`).join('');
+}
+
+function buildMeals(arr,id){
+  document.getElementById(id).innerHTML=arr.map(m=>`
+    <div class="meal-card">
+      <div class="meal-top"><span class="meal-name">${m.nombre}</span><span class="meal-g">${m.proteina}g</span></div>
+      <div class="meal-ing">${m.ingredientes}</div>
+      <div class="meal-time">⏱ ${m.tiempo}</div>
+    </div>`).join('');
+}
+
+function buildSmoothies(){
+  document.getElementById('smoothie-list').innerHTML=smoothies.map(s=>`
+    <div class="smoothie-card" style="border-left-color:${s.color}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div class="sm-name">${s.nombre}</div><div class="sm-cat" style="background:${s.color}33;color:${s.color}">${s.cat}</div></div>
+        <div style="text-align:right"><div style="color:var(--accent);font-weight:700">${s.prot}g</div><div style="color:var(--muted);font-size:10px">proteína</div></div>
+      </div>
+      <div class="sm-ing">${s.ing.map(i=>`<span>${i}</span>`).join('')}</div>
+      <div class="sm-ben">💡 ${s.ben}</div>
+    </div>`).join('');
+}
+
+function buildMercado(){
+  document.getElementById('mercado-list').innerHTML=Object.entries(mercado).map(([cat,items])=>`
+    <div style="margin-bottom:14px">
+      <h3 style="color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">${cat}</h3>
+      <div class="card" style="padding:10px 14px">
+        ${items.map(i=>`<div class="mkt-item" style="color:${i.startsWith('✅')?'var(--text)':'var(--warn)'}">${i}</div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function buildMinutas(){
+  document.getElementById('minutas-comer').innerHTML=`
+    <h3 style="color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">✅ COMER / PRIORIZAR</h3>
+    ${Object.entries(minutasComer).map(([cat,items])=>`
+      <div class="card" style="margin-bottom:8px">
+        <div style="color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:8px">${cat}</div>
+        <div>${items.map(i=>`<span class="pill-item" style="color:var(--accent);background:rgba(0,229,160,.08)">${i}</span>`).join('')}</div>
+      </div>`).join('')}`;
+
+  document.getElementById('minutas-evitar').innerHTML=`
+    <h3 style="color:var(--red);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px">❌ EVITAR / MODERAR</h3>
+    ${Object.entries(minutasEvitar).map(([cat,items])=>`
+      <div class="card" style="margin-bottom:8px">
+        <div style="color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:8px">${cat}</div>
+        <div>${items.map(i=>`<span class="pill-item" style="color:var(--red);background:rgba(255,77,109,.08)">${i}</span>`).join('')}</div>
+      </div>`).join('')}`;
+}
+
+function buildExercises(){
+  Object.entries(exercises).forEach(([day,exs])=>{
+    const el=document.getElementById('ex-'+day);
+    if(!el)return;
+    el.innerHTML=exs.map((e,i)=>`
+      <div class="ex-card" onclick="toggleEx(this)">
+        <div class="ex-hdr">
+          <span class="ex-num">${i+1}</span>
+          <div class="ex-info"><div class="ex-name">${e.n}</div><div class="ex-muscle">${e.m}</div></div>
+          <div class="ex-meta"><span class="ex-sets">${e.s}</span><span class="ex-rest">${e.r}</span></div>
+          <span class="ex-chev">▼</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-section">
+            <div class="ex-lbl">Cómo ejecutarlo</div>
+            <ol class="steps">${e.steps.map(s=>`<li><span class="sn">${e.steps.indexOf(s)+1}</span><span>${s}</span></li>`).join('')}</ol>
+          </div>
+          <div class="ex-section">
+            <div class="ex-lbl">Errores comunes</div>
+            <ul class="errors">${e.errors.map(er=>`<li>${er}</li>`).join('')}</ul>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=${e.yt}" target="_blank">▶ Ver en YouTube</a>
+        </div>
+      </div>`).join('');
+  });
+}
+
+// ── NAVIGATION ──────────────────────────────────────
+function showMain(sec,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+sec).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showSub(prefix,panel,btn){
+  const section=document.getElementById('sec-nutricion');
+  section.querySelectorAll('.inner').forEach(i=>i.classList.remove('active'));
+  section.querySelectorAll('.sub-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(prefix+'-'+panel).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showDay(day,btn){
+  document.querySelectorAll('.day-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.day-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('day-'+day).classList.add('active');
+  btn.classList.add('active');
+  document.querySelectorAll('.ex-card').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('.batido-dia').forEach(b=>b.classList.remove('open'));
+}
+
+function toggleEx(card){
+  const isOpen=card.classList.contains('open');
+  card.closest('.day-panel').querySelectorAll('.ex-card').forEach(c=>c.classList.remove('open'));
+  if(!isOpen)card.classList.add('open');
+}
+
+function toggleBD(el){el.classList.toggle('open')}
+
+// ── INIT ────────────────────────────────────────────
+buildSchedule();
+buildProtein();
+buildMeals(desayunos,'desayuno-list');
+buildMeals(cenas,'cena-list');
+buildSmoothies();
+buildMercado();
+buildMinutas();
+buildExercises();
+</script>
+</body>
+</html>
