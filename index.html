@@ -9,24 +9,24 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --black:#0A0F1A;
-  --card:#111827;
-  --card2:#1A2236;
-  --border:#1E2D42;
-  --accent:#00E5A0;
-  --accent2:#FF6B35;
-  --warn:#FFB347;
+  --black:#0C0C0E;
+  --card:#141416;
+  --card2:#1A1A1E;
+  --border:#242428;
+  --accent:#C8F135;
+  --accent2:#FF5C5C;
+  --warn:#FFBE4F;
   --red:#FF4D6D;
-  --blue:#4A90E2;
-  --muted:#6B7A99;
-  --text:#E8EDF5;
+  --blue:#7B9CFF;
+  --muted:#5A5A68;
+  --text:#E2E2E8;
   --white:#fff;
 }
 
 body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
 
 /* ── MAIN NAV ── */
-.main-nav{display:flex;background:#0D1421;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;overflow-x:auto;scrollbar-width:none}
+.main-nav{display:flex;background:#0C0C0E;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;overflow-x:auto;scrollbar-width:none}
 .main-nav::-webkit-scrollbar{display:none}
 .main-tab{flex-shrink:0;padding:12px 14px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.05em;cursor:pointer;white-space:nowrap;transition:all .2s}
 .main-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
@@ -36,7 +36,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,san
 .section.active{display:block}
 
 /* ── HEADER ── */
-.apex-header{background:linear-gradient(135deg,#0D1B2A 0%,#1A2236 100%);border-bottom:1px solid var(--border);padding:20px 16px 14px}
+.apex-header{background:linear-gradient(135deg,#0C0C0E 0%,#1A1A1E 100%);border-bottom:1px solid var(--border);padding:20px 16px 14px}
 .apex-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,10vw,64px);line-height:.9;color:var(--accent);letter-spacing:.02em}
 .apex-logo span{color:var(--text);font-size:clamp(14px,4vw,22px);font-family:'Inter',sans-serif;font-weight:300;letter-spacing:.1em;display:block;margin-top:2px}
 .header-stats{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px}
@@ -101,25 +101,24 @@ body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,san
 .pill-item{background:rgba(0,0,0,.2);border-radius:6px;padding:3px 8px;font-size:11px;display:inline-block;margin:3px 3px 3px 0}
 
 /* ── GYM ── */
-.week-nav{display:flex;gap:4px;padding:12px 14px;background:var(--card2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
-.week-nav::-webkit-scrollbar{display:none}
+.week-nav{display:flex;gap:4px;padding:12px 14px;background:var(--card2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}.week-nav::-webkit-scrollbar{display:none}
 .day-tab{flex-shrink:0;padding:7px 13px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;white-space:nowrap}
-.day-tab:hover{color:var(--white);background:#252535}
-.day-tab.active{color:#000;background:var(--accent);border-color:var(--accent);font-weight:700}
+.day-tab:hover{color:var(--white);background:#222226}
+.day-tab.active{color:#0C0C0E;background:var(--accent);border-color:var(--accent);font-weight:700}
 .day-tab.rest.active{background:#333;border-color:#333;color:var(--muted)}
 
 .day-panel{display:none;padding:0 0 20px}
 .day-panel.active{display:block}
 .day-hero{padding:16px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
 .day-badge{font-size:10px;font-weight:700;letter-spacing:.12em;padding:4px 10px;border-radius:20px;white-space:nowrap;margin-top:2px;flex-shrink:0}
-.badge-push{background:rgba(255,107,53,.15);color:var(--accent2);border:1px solid rgba(255,107,53,.3)}
-.badge-pull{background:rgba(74,144,226,.1);color:var(--blue);border:1px solid rgba(74,144,226,.2)}
-.badge-legs{background:rgba(255,179,71,.1);color:var(--warn);border:1px solid rgba(255,179,71,.2)}
-.badge-rest{background:rgba(80,80,80,.2);color:var(--muted);border:1px solid #333}
+.badge-push{background:rgba(255,92,92,.12);color:#FF5C5C;border:1px solid rgba(255,92,92,.25)}
+.badge-pull{background:rgba(123,156,255,.1);color:var(--blue);border:1px solid rgba(123,156,255,.2)}
+.badge-legs{background:rgba(255,190,79,.1);color:var(--warn);border:1px solid rgba(255,190,79,.2)}
+.badge-rest{background:rgba(80,80,80,.15);color:var(--muted);border:1px solid #333}
 .day-name{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--white);line-height:1}
 .day-focus{font-size:12px;color:var(--muted);margin-top:3px}
 
-.cardio-pill{margin:10px 14px 0;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.2);border-radius:6px;font-size:12px;color:#00c48a}
+.cardio-pill{margin:10px 14px 0;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(200,241,53,.06);border:1px solid rgba(200,241,53,.18);border-radius:6px;font-size:12px;color:#A8CC20}
 
 .ex-list{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
 .ex-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s}
@@ -135,7 +134,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,san
 .ex-chev{color:var(--muted);font-size:12px;transition:transform .25s;flex-shrink:0;margin-left:4px}
 .ex-card.open .ex-chev{transform:rotate(180deg);color:var(--accent)}
 
-.ex-body{display:none;border-top:1px solid var(--border);background:#161f2e;padding:14px}
+.ex-body{display:none;border-top:1px solid var(--border);background:#111113;padding:14px}
 .ex-card.open .ex-body{display:block}
 .ex-section{margin-bottom:12px}
 .ex-section:last-child{margin-bottom:0}
@@ -150,22 +149,22 @@ body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,san
 .yt-btn:hover{background:rgba(255,0,0,.22)}
 
 /* batido del día inline */
-.batido-dia{margin:10px 14px 0;background:linear-gradient(135deg,rgba(0,229,160,.07),rgba(0,229,160,.02));border:1px solid rgba(0,229,160,.2);border-radius:10px;padding:12px 14px;cursor:pointer;transition:border-color .2s}
-.batido-dia.open{border-color:rgba(0,229,160,.4)}
+.batido-dia{margin:10px 14px 0;background:linear-gradient(135deg,rgba(200,241,53,.06),rgba(200,241,53,.02));border:1px solid rgba(200,241,53,.18);border-radius:10px;padding:12px 14px;cursor:pointer;transition:border-color .2s}
+.batido-dia.open{border-color:rgba(200,241,53,.35)}
 .bd-hdr{display:flex;align-items:center;justify-content:space-between}
 .bd-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:3px}
 .bd-name{font-size:14px;font-weight:700;color:var(--white)}
 .bd-sub{font-size:11px;color:#555;margin-top:2px}
 .bd-chev{color:var(--accent);font-size:12px;transition:transform .2s;flex-shrink:0}
 .batido-dia.open .bd-chev{transform:rotate(180deg)}
-.bd-expand{display:none;margin-top:12px;border-top:1px solid rgba(0,229,160,.15);padding-top:12px}
+.bd-expand{display:none;margin-top:12px;border-top:1px solid rgba(200,241,53,.12);padding-top:12px}
 .batido-dia.open .bd-expand{display:block}
 .bd-ing{list-style:none}
 .bd-ing li{font-size:12px;color:#aaa;padding:3px 0 3px 12px;position:relative;line-height:1.5}
 .bd-ing li::before{content:'›';position:absolute;left:0;color:var(--accent)}
-.bd-tip{font-size:12px;color:#777;background:rgba(255,255,255,.03);border-left:2px solid var(--accent);border-radius:0 4px 4px 0;padding:7px 10px;line-height:1.6;margin-top:8px}
-.bd-more{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 12px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);border-radius:6px;color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;transition:background .2s}
-.bd-more:hover{background:rgba(0,229,160,.18)}
+.bd-tip{font-size:12px;color:#666;background:rgba(255,255,255,.03);border-left:2px solid var(--accent);border-radius:0 4px 4px 0;padding:7px 10px;line-height:1.6;margin-top:8px}
+.bd-more{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 12px;background:rgba(200,241,53,.08);border:1px solid rgba(200,241,53,.2);border-radius:6px;color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;transition:background .2s}
+.bd-more:hover{background:rgba(200,241,53,.15)}
 
 /* princ + metrics */
 .princ-row{font-size:12px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)}
@@ -197,13 +196,29 @@ body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,san
 .meal-ing{color:var(--muted);font-size:11px}
 .meal-time{color:var(--blue);font-size:11px;margin-top:2px}
 
-/* distrib */
+/* snack cards */
+.snack-card{background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:6px;border-left:3px solid var(--warn)}
+.snack-top{display:flex;justify-content:space-between;margin-bottom:3px}
+.snack-name{font-weight:600;font-size:13px}
+.snack-g{color:var(--accent);font-weight:700;font-size:13px}
+.snack-ing{color:var(--muted);font-size:11px}
+.snack-meta{display:flex;gap:10px;margin-top:4px}
+.snack-time{color:var(--blue);font-size:11px}
+.snack-when{color:var(--warn);font-size:11px}
+
+/* grasas cards */
+.fat-card{background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:6px;border-left:3px solid #4CAF50}
+.fat-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+.fat-name{font-weight:600;font-size:13px}
+.fat-badge{background:rgba(76,175,80,.15);color:#4CAF50;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap}
+.fat-info{color:var(--muted);font-size:11px;margin-bottom:3px}
+.fat-tip{color:#aaa;font-size:11px;font-style:italic;border-left:2px solid rgba(76,175,80,.3);padding-left:8px;margin-top:4px}
 .dist-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
 .dist-t{color:var(--muted)}
 .dist-g{color:var(--text);font-weight:600}
 
 /* footer */
-.apex-footer{text-align:center;padding:12px;color:var(--muted);font-size:10px;border-top:1px solid var(--border);letter-spacing:.08em}
+.apex-footer{text-align:center;padding:12px;color:var(--muted);font-size:10px;border-top:1px solid var(--border);letter-spacing:.1em}
 </style>
 </head>
 <body>
@@ -276,7 +291,9 @@ body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,san
   <div class="sub-nav">
     <button class="sub-tab active" onclick="showSub('nut','proteinas',this)">🥩 Proteínas</button>
     <button class="sub-tab" onclick="showSub('nut','desayunos',this)">🍳 Desayunos</button>
+    <button class="sub-tab" onclick="showSub('nut','snacks',this)">🥜 Snacks</button>
     <button class="sub-tab" onclick="showSub('nut','cenas',this)">🌙 Cenas</button>
+    <button class="sub-tab" onclick="showSub('nut','grasas',this)">🥑 Grasas</button>
     <button class="sub-tab" onclick="showSub('nut','distrib',this)">📊 Distribución</button>
   </div>
 
@@ -290,9 +307,19 @@ body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,san
     <div id="desayuno-list"></div>
   </div>
 
+  <div id="nut-snacks" class="inner" style="padding:14px">
+    <div class="card2"><p style="color:var(--text);font-size:13px;font-weight:600;margin:0 0 4px">Snacks estratégicos</p><p style="color:var(--muted);font-size:12px;margin:0">10AM y 3PM aprox. Objetivo: sostener proteína, frenar hambre antes de gym o cena. Cada snack apunta a 15–30g proteína.</p></div>
+    <div id="snack-list"></div>
+  </div>
+
   <div id="nut-cenas" class="inner" style="padding:14px">
     <div class="sec-lbl accent">Plan de cenas</div>
     <div id="cena-list"></div>
+  </div>
+
+  <div id="nut-grasas" class="inner" style="padding:14px">
+    <div class="card2"><p style="color:var(--text);font-size:13px;font-weight:600;margin:0 0 4px">Grasas saludables · 50–70g/día</p><p style="color:var(--muted);font-size:12px;margin:0">Esenciales para testosterona, absorción de vitaminas A/D/E/K y saciedad. No son el enemigo — son aliadas en déficit calórico.</p></div>
+    <div id="grasas-list"></div>
   </div>
 
   <div id="nut-distrib" class="inner" style="padding:14px">
@@ -500,32 +527,81 @@ const tipoColor={rutina:"#6B7A99",apex:"#00E5A0",comida:"#FFB347",trabajo:"#4A90
 const proteinSources=[
   {fuente:"Pechuga de pollo",g100:31,porcion:"200g cocida",proteina:62,prep:"Plancha, horno, desmechada"},
   {fuente:"Salmón",g100:25,porcion:"150g",proteina:37,prep:"Plancha al horno con limón y ajo"},
+  {fuente:"Atún en agua (lata)",g100:28,porcion:"1 lata 160g",proteina:45,prep:"Solo escurrir. Con limón, aguacate o huevo"},
+  {fuente:"Atún fresco",g100:30,porcion:"150g",proteina:45,prep:"A la plancha con ajo y especias"},
   {fuente:"Tilapia",g100:26,porcion:"200g",proteina:52,prep:"Al vapor, a la plancha, al horno"},
   {fuente:"Carne molida res magra",g100:26,porcion:"150g",proteina:39,prep:"Salteada, en cazuela"},
   {fuente:"Camarones",g100:24,porcion:"150g",proteina:36,prep:"Salteados con ajo, al vapor"},
   {fuente:"Colombinas de pollo",g100:20,porcion:"150g",proteina:30,prep:"Al horno, a la plancha"},
   {fuente:"Huevos",g100:13,porcion:"3 huevos",proteina:19,prep:"Revueltos, cocidos, omelette"},
+  {fuente:"Claras de huevo",g100:11,porcion:"6 claras",proteina:22,prep:"Omelette, revueltas, en batidos"},
   {fuente:"Yogur griego",g100:10,porcion:"200g",proteina:20,prep:"Con fruta, como snack, en batidos"},
+  {fuente:"Queso cottage",g100:11,porcion:"200g",proteina:22,prep:"Con fruta, en tostadas, con canela"},
   {fuente:"Lentejas (cocidas)",g100:9,porcion:"200g",proteina:18,prep:"En sopa, con arroz integral"},
   {fuente:"Albóndigas (res)",g100:18,porcion:"150g",proteina:27,prep:"En salsa criolla o boloñesa"},
+  {fuente:"Sardinas en lata",g100:25,porcion:"1 lata 125g",proteina:31,prep:"Con tostada integral, en ensalada"},
+  {fuente:"Pavo (pechuga)",g100:29,porcion:"150g",proteina:43,prep:"A la plancha, en wrap, desmechado"},
 ];
 
 const desayunos=[
-  {nombre:"Omelette proteico",proteina:40,ingredientes:"3 huevos + 100g pechuga desmechada + espinaca + queso bajo en grasa",tiempo:"10 min"},
-  {nombre:"Bowl de yogur griego",proteina:35,ingredientes:"200g yogur griego + fresas + granola sin azúcar",tiempo:"5 min"},
-  {nombre:"Huevos revueltos + salmón",proteina:45,ingredientes:"3 huevos + 80g salmón + aguacate ¼",tiempo:"10 min"},
-  {nombre:"Tostada alta proteína",proteina:30,ingredientes:"Tortilla integral + 100g pollo + queso + tomate",tiempo:"8 min"},
+  {nombre:"Omelette proteico clásico",proteina:40,ingredientes:"3 huevos + 100g pechuga desmechada + espinaca + queso bajo en grasa",tiempo:"10 min"},
+  {nombre:"Omelette de claras con atún",proteina:42,ingredientes:"5 claras + 1 lata atún en agua + tomate + cebolla + cilantro",tiempo:"10 min"},
+  {nombre:"Bowl de yogur griego",proteina:35,ingredientes:"200g yogur griego + fresas + granola sin azúcar + 1 cda chía",tiempo:"5 min"},
+  {nombre:"Huevos revueltos + salmón",proteina:45,ingredientes:"3 huevos + 80g salmón + ¼ aguacate + limón",tiempo:"10 min"},
+  {nombre:"Tostada alta proteína",proteina:30,ingredientes:"Tortilla integral + 100g pollo desmechado + queso + tomate",tiempo:"8 min"},
+  {nombre:"Avena proteica",proteina:32,ingredientes:"60g avena en agua + 2 cdas mantequilla de maní + 1 banano + canela + whey opcional",tiempo:"8 min"},
+  {nombre:"Bowl de cottage con fruta",proteina:28,ingredientes:"200g queso cottage + mango/fresas + 1 cda linaza + miel de abejas",tiempo:"5 min"},
+  {nombre:"Wrap de huevo y aguacate",proteina:34,ingredientes:"2 tortillas integrales + 3 huevos revueltos + ½ aguacate + tomate + espinaca",tiempo:"10 min"},
+  {nombre:"Panquecas de avena",proteina:30,ingredientes:"60g avena + 2 huevos + 1 banano + leche descremada · Servir con fruta",tiempo:"12 min"},
+  {nombre:"Sardinas con tostada integral",proteina:33,ingredientes:"1 lata sardinas + 2 tostadas integrales + tomate + aguacate + limón",tiempo:"5 min"},
+  {nombre:"Revuelto de pavo y espinaca",proteina:38,ingredientes:"120g pavo desmenuzado + 2 huevos + espinaca + ajo + pimentón",tiempo:"10 min"},
+  {nombre:"Pudín de chía con yogur",proteina:26,ingredientes:"3 cdas chía en leche descremada (noche anterior) + 150g yogur griego + frutos rojos",tiempo:"5 min (preparar noche anterior)"},
 ];
 
 const cenas=[
-  {nombre:"Salmón al limón + brócoli",proteina:45,ingredientes:"180g salmón + brócoli al vapor + limón + ajo",tiempo:"15 min"},
-  {nombre:"Tilapia con ensalada",proteina:48,ingredientes:"200g tilapia + lechuga + tomate + aguacate + limón",tiempo:"15 min"},
-  {nombre:"Bowl de camarones",proteina:40,ingredientes:"180g camarones + arroz integral pequeño + pimiento",tiempo:"12 min"},
-  {nombre:"Pollo desmechado con papa",proteina:50,ingredientes:"200g pechuga + papa pequeña cocida + ensalada",tiempo:"15 min"},
+  {nombre:"Salmón al limón + brócoli",proteina:45,ingredientes:"180g salmón + brócoli al vapor + limón + ajo + aceite de oliva",tiempo:"15 min"},
+  {nombre:"Tilapia con ensalada verde",proteina:48,ingredientes:"200g tilapia + lechuga + tomate + ½ aguacate + limón + aceite de oliva",tiempo:"15 min"},
+  {nombre:"Bowl de camarones salteados",proteina:40,ingredientes:"180g camarones + pimentón + ajo + ½ taza arroz integral + cilantro",tiempo:"12 min"},
+  {nombre:"Pollo desmechado con papa",proteina:50,ingredientes:"200g pechuga + papa pequeña cocida + ensalada + mostaza",tiempo:"15 min"},
+  {nombre:"Atún con ensalada mediterránea",proteina:44,ingredientes:"1 lata atún en agua + pepino + tomate cherry + aceituna + limón + aguacate",tiempo:"7 min"},
+  {nombre:"Omelette nocturno de claras",proteina:38,ingredientes:"6 claras + 1 huevo entero + champiñones + espinaca + queso bajo en grasa",tiempo:"10 min"},
+  {nombre:"Albóndigas de res en salsa criolla",proteina:42,ingredientes:"150g albóndigas de res + salsa de tomate casera + ensalada + zanahoria",tiempo:"20 min"},
+  {nombre:"Sardinas a la plancha con vegetales",proteina:36,ingredientes:"150g sardinas frescas + brócoli + zanahoria al vapor + limón",tiempo:"15 min"},
+  {nombre:"Pavo con espárragos",proteina:46,ingredientes:"180g pechuga de pavo + espárragos + ajo + aceite de oliva + papa pequeña",tiempo:"15 min"},
+  {nombre:"Bowl de lentejas con carne",proteina:44,ingredientes:"100g carne molida magra + 150g lentejas cocidas + pimentón + cebolla + especias",tiempo:"20 min"},
+  {nombre:"Ceviche de camarones",proteina:38,ingredientes:"200g camarones cocidos + limón + cebolla + tomate + cilantro + ají",tiempo:"10 min"},
+  {nombre:"Tilapia en papillote",proteina:50,ingredientes:"200g tilapia + zanahoria + pimentón + tomillo + limón · envuelta en papel aluminio al horno",tiempo:"20 min"},
+];
+
+const snacks=[
+  {nombre:"Lata de atún + tostada",proteina:30,ingredientes:"1 lata atún en agua + 1 tostada integral + ¼ aguacate + limón",tiempo:"3 min",momento:"10AM o 3PM"},
+  {nombre:"Yogur griego con frutos rojos",proteina:20,ingredientes:"200g yogur griego sin azúcar + mora/fresa + 1 cda chía",tiempo:"2 min",momento:"10AM"},
+  {nombre:"Huevos duros",proteina:19,ingredientes:"3 huevos duros + sal rosada + pimentón al gusto",tiempo:"10 min (preparar antes)",momento:"Cualquier hora"},
+  {nombre:"Cottage con manzana",proteina:22,ingredientes:"200g queso cottage + 1 manzana verde en trozos + canela",tiempo:"3 min",momento:"3PM"},
+  {nombre:"Mix de nueces y almendras",proteina:10,ingredientes:"30g almendras + 10g nueces + 10g maní tostado sin sal",tiempo:"0 min",momento:"Media mañana"},
+  {nombre:"Sardinas + arroz integral",proteina:28,ingredientes:"1 lata sardinas en agua + ½ taza arroz integral + limón + ensalada pequeña",tiempo:"5 min",momento:"3PM pre-gym"},
+  {nombre:"Wrap proteico express",proteina:35,ingredientes:"1 tortilla integral + 80g pollo frío desmechado + aguacate + mostaza",tiempo:"5 min",momento:"3PM"},
+  {nombre:"Batido de emergencia",proteina:28,ingredientes:"200g yogur griego + 1 banano + 200ml leche descremada + 1 cda mantequilla de maní",tiempo:"3 min",momento:"Post-gym si no alcanzó a cenar"},
+  {nombre:"Manzana con mantequilla de maní",proteina:8,ingredientes:"1 manzana + 2 cdas mantequilla de maní natural sin azúcar",tiempo:"1 min",momento:"Cualquier hora"},
+  {nombre:"Omelette mini de claras",proteina:22,ingredientes:"4 claras + espinaca + queso bajo grasa · rápido en sartén",tiempo:"7 min",momento:"10AM si desayuno fue ligero"},
+];
+
+const grasas=[
+  {fuente:"Aguacate",porcion:"½ aguacate (75g)",grasa:"11g",omega:"Omega-9",tip:"Perfecto en ensaladas, tostadas y como acompañante de proteínas. Rico en potasio."},
+  {fuente:"Aceite de oliva extra virgen",porcion:"1 cda (13ml)",grasa:"14g",omega:"Omega-9",tip:"Para cocinar a temperatura baja o aliñar ensaladas. No reutilizar."},
+  {fuente:"Mantequilla de maní natural",porcion:"2 cdas (32g)",grasa:"16g",omega:"Omega-6",tip:"Sin azúcar añadida. Combinar con fruta o avena. Límite: 2 cdas/día en déficit."},
+  {fuente:"Semillas de chía",porcion:"1 cda (15g)",grasa:"5g",omega:"Omega-3",tip:"Mejor fuente vegetal de omega-3. Ideal en batidos, yogur y pudines."},
+  {fuente:"Linaza molida",porcion:"1 cda (10g)",grasa:"4g",omega:"Omega-3",tip:"Moler antes de consumir. Añadir a batidos o avena. Apoya digestión."},
+  {fuente:"Almendras",porcion:"30g (~23 almendras)",grasa:"14g",omega:"Omega-9",tip:"Snack ideal. Rica en vitamina E y magnesio. Comprar sin sal añadida."},
+  {fuente:"Nueces",porcion:"30g (~7 mitades)",grasa:"18g",omega:"Omega-3",tip:"La mejor fuente de omega-3 vegetal después de la chía. Antiinflamatorio potente."},
+  {fuente:"Salmón (ya lo tienes)",porcion:"150g",grasa:"13g",omega:"Omega-3 EPA/DHA",tip:"La fuente de omega-3 más biodisponible. Apoya recuperación muscular y piel."},
+  {fuente:"Sardinas",porcion:"1 lata 125g",grasa:"9g",omega:"Omega-3 EPA/DHA",tip:"Opción económica y práctica. Igual de eficiente que el salmón en omega-3."},
+  {fuente:"Huevo entero (yema)",porcion:"2 huevos",grasa:"10g",omega:"Omega-3 + vit D",tip:"La yema tiene colina, vitamina D y omega-3. No hay razón para tirarla."},
+  {fuente:"Aceite de coco (con moderación)",porcion:"1 cda (14ml)",grasa:"14g",omega:"Saturadas",tip:"Usar para saltear a alta temperatura. Máximo 1 cda/día por ser saturada."},
+  {fuente:"Queso cottage",porcion:"200g",grasa:"5g",omega:"CLA",tip:"Contiene CLA que apoya la quema de grasa. Bajo en grasa vs otros quesos."},
 ];
 
 const smoothies=[
-  {nombre:"REMOLACHA POWER 🔴",cat:"Pre-entreno / Rendimiento",color:"#8B1A4A",ing:["1 remolacha mediana (o batch congelado)","1 manzana verde","½ limón","1 cm jengibre","200ml agua de coco","Hielo"],ben:"Aumenta óxido nítrico → mejor flujo sanguíneo → más fuerza. Tomar 60–90 min antes del gym.",prot:3},
   {nombre:"GREEN MUSCLE 💚",cat:"Recuperación / Antiinflamatorio",color:"#1A5C3A",ing:["1 puñado espinaca","½ pepino","½ manzana verde","1 cm jengibre","1 cda semillas chía","200ml agua","Jugo de ½ limón"],ben:"Antiinflamatorio post-entreno. Magnesio de espinaca ayuda recuperación muscular.",prot:4},
   {nombre:"PROTEIN BLAST 🟤",cat:"Post-entreno / Construcción muscular",color:"#5C3A1A",ing:["200g yogur griego","1 banano maduro","1 cda mantequilla de maní","200ml leche descremada","1 pizca canela","Hielo"],ben:"Alta proteína + carbos rápidos post-entreno. Ventana anabólica de 30–60 min.",prot:28},
   {nombre:"MANGO ANTIOXIDANTE 🟡",cat:"Antioxidante / Inmunidad",color:"#8B5E00",ing:["1 taza mango congelado","½ zanahoria","1 naranja (jugo)","1 cm cúrcuma fresca","200ml agua","Hielo"],ben:"Vitamina C + betacarotenos. Ideal para días de descanso del gym.",prot:3},
@@ -536,11 +612,12 @@ const smoothies=[
 ];
 
 const mercado={
-  "🥩 Proteínas":["✅ Pechuga de pollo (ya tienes) — 1 kg/semana","✅ Salmón (ya tienes) — 400g/semana","✅ Tilapia (ya tienes) — 400g/semana","✅ Carne molida res magra — 500g/semana","✅ Camarones","✅ Colombinas de pollo","🆕 Huevos — 12–18 unidades/semana","🆕 Yogur griego (sin azúcar) — 2 potes grandes","🆕 Albóndigas caseras"],
-  "🌾 Carbohidratos":["✅ Papas","✅ Lentejas","✅ Tortillas","🆕 Arroz integral","🆕 Avena (para desayunos)","🆕 Quinoa (alta proteína vegetal)","🆕 Pan integral (limitado)"],
-  "🥦 Verduras":["✅ Brócoli — congelar en porciones","🆕 Espinaca — base de batidos verdes","🆕 Pepino — hidratación y batidos","🆕 Zanahoria — batidos y ensaladas","🆕 Lechuga romana","🆕 Tomate cherry","🆕 Pimentón de colores","🆕 Aguacate — 2–3 por semana"],
-  "🍓 Frutas y Batch":["✅ Fresas congeladas (batch)","✅ Remolacha congelada (batch) 🔥","🆕 Mora congelada — melatonina + antioxidante","🆕 Mango congelado","🆕 Banano — madurar y congelar en trozos","🆕 Manzana verde","🆕 Limones — 8–10 por semana","🆕 Naranja — 4–6 por semana","🆕 Guayaba (cuando encuentres)","🆕 Lulo (cuando encuentres)"],
-  "🌿 Extras y Superfoods":["🆕 Semillas de chía — omega-3 + fibra","🆕 Linaza molida","🆕 Mantequilla de maní (sin azúcar)","🆕 Jengibre fresco","🆕 Cúrcuma fresca o en polvo","🆕 Agua de coco (tetra pak)","🆕 Miel de abejas (pequeño frasco)","🆕 Queso cottage bajo en grasa"],
+  "🥩 Proteínas":["✅ Pechuga de pollo (ya tienes) — 1 kg/semana","✅ Salmón (ya tienes) — 400g/semana","✅ Tilapia (ya tienes) — 400g/semana","✅ Carne molida res magra — 500g/semana","✅ Camarones","✅ Colombinas de pollo","🆕 Atún en agua (lata) — 4–6 latas/semana","🆕 Sardinas en agua (lata) — 2–3 latas/semana","🆕 Pechuga de pavo — 300g/semana","🆕 Huevos — 18–24 unidades/semana","🆕 Claras de huevo (caja) — opcional","🆕 Yogur griego (sin azúcar) — 2 potes grandes","🆕 Queso cottage bajo en grasa — 1 pote","🆕 Albóndigas caseras de res"],
+  "🌾 Carbohidratos":["✅ Papas","✅ Lentejas","✅ Tortillas integrales","🆕 Arroz integral","🆕 Avena en hojuelas — desayunos y batidos","🆕 Quinoa — alta proteína vegetal","🆕 Pan integral (limitado — 2 rebanadas/día máx)","🆕 Tostadas de arroz integral"],
+  "🥦 Verduras":["✅ Brócoli — congelar en porciones","🆕 Espinaca — base de batidos y omelettes","🆕 Pepino — hidratación y batidos","🆕 Zanahoria — batidos y ensaladas","🆕 Lechuga romana","🆕 Tomate cherry","🆕 Pimentón de colores","🆕 Champiñones — bajo en cal, alta densidad nutricional","🆕 Espárragos — diurético natural","🆕 Aguacate — 3–4 por semana"],
+  "🍓 Frutas y Batch":["✅ Fresas congeladas (batch)","✅ Remolacha congelada (batch) 🔥","🆕 Mora congelada — melatonina + antioxidante","🆕 Mango congelado","🆕 Banano — madurar y congelar en trozos","🆕 Manzana verde","🆕 Limones — 10–12 por semana","🆕 Naranja — 4–6 por semana","🆕 Guayaba (cuando encuentres)","🆕 Lulo (cuando encuentres)"],
+  "🥑 Grasas Saludables":["🆕 Aceite de oliva extra virgen — 1 botella pequeña","🆕 Mantequilla de maní natural (sin azúcar) — 1 frasco","🆕 Almendras sin sal — 200g/semana","🆕 Nueces — 100g/semana","🆕 Semillas de chía — omega-3 + fibra","🆕 Linaza molida","🆕 Aceite de coco (opcional para saltear)"],
+  "🌿 Extras y Superfoods":["🆕 Jengibre fresco","🆕 Cúrcuma fresca o en polvo","🆕 Agua de coco (tetra pak)","🆕 Miel de abejas (pequeño frasco)","🆕 Canela en polvo","🆕 Mostaza sin azúcar — aderezar sin calorías","🆕 Salsa de soya baja en sodio"],
 };
 
 const minutasComer={
@@ -702,6 +779,24 @@ function buildExercises(){
   });
 }
 
+function buildSnacks(){
+  document.getElementById('snack-list').innerHTML=snacks.map(s=>`
+    <div class="snack-card">
+      <div class="snack-top"><span class="snack-name">${s.nombre}</span><span class="snack-g">${s.proteina}g prot</span></div>
+      <div class="snack-ing">${s.ingredientes}</div>
+      <div class="snack-meta"><span class="snack-time">⏱ ${s.tiempo}</span><span class="snack-when">🕐 ${s.momento}</span></div>
+    </div>`).join('');
+}
+
+function buildGrasas(){
+  document.getElementById('grasas-list').innerHTML=grasas.map(g=>`
+    <div class="fat-card">
+      <div class="fat-top"><span class="fat-name">${g.fuente}</span><span class="fat-badge">${g.omega}</span></div>
+      <div class="fat-info">${g.porcion} · <strong style="color:var(--accent)">${g.grasa} grasa</strong></div>
+      <div class="fat-tip">💡 ${g.tip}</div>
+    </div>`).join('');
+}
+
 // ── NAVIGATION ──────────────────────────────────────
 function showMain(sec,btn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -739,7 +834,9 @@ function toggleBD(el){el.classList.toggle('open')}
 buildSchedule();
 buildProtein();
 buildMeals(desayunos,'desayuno-list');
+buildSnacks();
 buildMeals(cenas,'cena-list');
+buildGrasas();
 buildSmoothies();
 buildMercado();
 buildMinutas();
